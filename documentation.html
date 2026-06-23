@@ -248,6 +248,10 @@
         line-height: 1.62;
     }
 
+    .hyperbar-docs-card:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+    }
+
     @media (max-width: 720px) {
         .hyperbar-docs-container {
             padding: 38px 12px 88px;
@@ -303,6 +307,10 @@
                 <div class="hyperbar-docs-card">
                     <strong>Render Animation</strong>
                     <span>The <code>Render Animation</code> button is only a shortcut for Blender's native animation render. While a render is active, the button is disabled to prevent starting another render by accident.</span>
+                </div>
+                <div class="hyperbar-docs-card">
+                    <strong>Clear History</strong>
+                    <span>The small trash button next to <code>Render Animation</code> clears the render history list. It only removes the saved history entries from the panel; it does not affect rendered files or Blender render settings.</span>
                 </div>
             </div>
         </section>
