@@ -239,6 +239,36 @@
         margin-top: 20px;
     }
 
+    .hyperbar-feature > .hyperbar-eta-note {
+        display: block;
+        width: 100%;
+        max-width: none;
+        margin: 56px 0 0;
+        padding: 20px 22px 22px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-left: 2px solid rgba(255, 184, 77, 0.74);
+        border-radius: var(--hpb-radius-control);
+        color: rgba(169, 176, 167, 0.9);
+        background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0)),
+            rgba(255, 255, 255, 0.028);
+        font-size: 0.98rem;
+        font-weight: 400;
+        line-height: 1.68;
+        letter-spacing: 0.002em;
+    }
+
+    .hyperbar-eta-note strong {
+        display: block;
+        margin-bottom: 8px;
+        color: rgba(245, 247, 241, 0.88);
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.13em;
+        line-height: 1;
+        text-transform: uppercase;
+    }
+
     .hyperbar-feature code {
         display: inline-block;
         padding: 0.1em 0.42em;
@@ -259,25 +289,13 @@
     .hyperbar-progress-strip {
         position: relative;
         width: calc(100% + 96px);
-        height: 38px;
+        height: 19px;
         margin: -48px -48px 42px;
         overflow: hidden;
         border: 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.055);
         background: var(--hpb-panel);
         box-shadow: none;
-        cursor: ew-resize;
-        touch-action: none;
-        user-select: none;
-    }
-
-    .hyperbar-progress-strip:focus {
-        outline: none;
-    }
-
-    .hyperbar-progress-strip:focus-visible {
-        outline: 1px solid rgba(238, 242, 232, 0.2);
-        outline-offset: -1px;
     }
 
     .hyperbar-progress-bar {
@@ -295,17 +313,14 @@
         position: absolute;
         inset: 0 auto 0 0;
         z-index: 1;
-        width: 83%;
+        width: 100%;
         border-radius: 0;
         background:
             linear-gradient(180deg, rgba(255, 255, 255, 0.055), transparent 66%),
             linear-gradient(90deg, #111418 0%, #1b2026 46%, #2a3139 100%);
         box-shadow: none;
-        transition: width 0.18s ease-out;
-    }
-
-    .hyperbar-progress-strip.is-dragging .hyperbar-progress-fill {
-        transition: none;
+        transform-origin: left center;
+        animation: hyperbar-progress-fill 4.2s cubic-bezier(0.18, 0.86, 0.24, 1) both;
     }
 
     .hyperbar-progress-fill::after {
@@ -318,23 +333,14 @@
         pointer-events: none;
     }
 
-    .hyperbar-progress-readout {
-        position: absolute;
-        inset: 0;
-        z-index: 4;
-        display: grid;
-        place-items: center;
-        color: rgba(238, 242, 232, 0.38);
-        font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-        font-size: clamp(0.78rem, 1.2vw, 0.9rem);
-        font-weight: 560;
-        line-height: 1.12;
-        letter-spacing: 0.01em;
-        word-spacing: 0;
-        white-space: nowrap;
-        text-shadow: none;
-        -webkit-font-smoothing: antialiased;
-        text-rendering: geometricPrecision;
+    @keyframes hyperbar-progress-fill {
+        from {
+            transform: scaleX(0);
+        }
+
+        to {
+            transform: scaleX(1);
+        }
     }
 
     .hyperbar-demo-slot {
@@ -378,7 +384,10 @@
     }
 
     .hyperbar-demo-slot--framed {
-        border: 1px solid rgba(255, 255, 255, 0.13);
+        border: 1px solid rgba(230, 234, 228, 0.22);
+        box-shadow:
+            0 18px 52px rgba(0, 0, 0, 0.28),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.04);
     }
 
     .hyperbar-demo-slot--vignette {
@@ -514,16 +523,12 @@
 
         .hyperbar-progress-strip {
             width: calc(100% + 48px);
-            height: 30px;
+            height: 15px;
             margin: -24px -24px 30px;
         }
 
         .hyperbar-progress-bar {
             height: 100%;
-        }
-
-        .hyperbar-progress-readout {
-            font-size: clamp(0.72rem, 3vw, 0.88rem);
         }
 
         .hyperbar-demo-slot {
@@ -570,14 +575,13 @@
 
         <!-- Render Progress -->
         <section class="hyperbar-feature" id="render-progress">
-            <div class="hyperbar-progress-strip" role="slider" tabindex="0" aria-label="Hyper Bar progress bar preview" aria-valuemin="0" aria-valuemax="100" aria-valuenow="83" aria-valuetext="83%, 25/30, 01:42 left" data-progress="83" data-total-frames="30" data-total-seconds="600" data-autoplay-duration="4200">
+            <div class="hyperbar-progress-strip" aria-hidden="true">
                 <div class="hyperbar-progress-bar">
-                    <div class="hyperbar-progress-fill" style="width: 0;"></div>
-                    <span class="hyperbar-progress-readout">83%, 25/30, 01:42 left</span>
+                    <div class="hyperbar-progress-fill"></div>
                 </div>
             </div>
             <h3>Stop Guessing Render Time</h3>
-            <p>Keep track of your render with clear, useful data: time left, estimated finish time, elapsed time, progress percentage, and frame count.</p>
+            <p>Keep track of your render with clear, useful data: time left, estimated finish time, elapsed time, rendered and total frames, and average frame time.</p>
             <figure class="hyperbar-demo-slot hyperbar-demo-slot--framed" aria-label="Hyper Bar progress demo">
                 <video src="assets/demo1.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Hyper Bar remaining time and ETA demo"></video>
             </figure>
@@ -585,6 +589,7 @@
             <figure class="hyperbar-demo-slot hyperbar-demo-slot--framed" aria-label="Bar location demo">
                 <video src="assets/demo2.mp4" autoplay muted loop playsinline preload="metadata" aria-label="Hyper Bar progress bar location demo"></video>
             </figure>
+            <p class="hyperbar-eta-note"><strong>Rolling ETA</strong>Hyper Bar estimates the time left based on recent frames. In the add-on settings, you can choose how many recent frames it uses, so the ETA can update faster or stay smoother.</p>
         </section>
 
         <!-- Hyper Shot Companion Add-on -->
@@ -607,126 +612,6 @@
         </section>
     </div>
 </main>
-<script>
-    (() => {
-        const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
-        const formatTime = (seconds) => {
-            const safeSeconds = Math.max(0, Math.round(seconds));
-            const minutes = String(Math.floor(safeSeconds / 60)).padStart(2, "0");
-            const remainder = String(safeSeconds % 60).padStart(2, "0");
-            return `${minutes}:${remainder}`;
-        };
-        const easeOutQuart = (value) => 1 - Math.pow(1 - value, 4);
-
-        document.querySelectorAll(".hyperbar-progress-strip").forEach((strip) => {
-            const fill = strip.querySelector(".hyperbar-progress-fill");
-            const readout = strip.querySelector(".hyperbar-progress-readout");
-            const totalFrames = Number(strip.dataset.totalFrames) || 30;
-            const totalSeconds = Number(strip.dataset.totalSeconds) || 600;
-            const targetProgress = clamp(Number(strip.dataset.progress) || 0, 0, 100);
-            const autoplayDuration = Number(strip.dataset.autoplayDuration) || 4200;
-            let progress = 0;
-            let isDragging = false;
-            let autoplayFrame = 0;
-
-            const updateProgress = (nextProgress) => {
-                progress = clamp(nextProgress, 0, 100);
-                const renderedFrames = Math.round((totalFrames * progress) / 100);
-                const secondsLeft = totalSeconds * (1 - progress / 100);
-                const roundedProgress = Math.round(progress);
-                const text = `${roundedProgress}%, ${renderedFrames}/${totalFrames}, ${formatTime(secondsLeft)} left`;
-
-                fill.style.width = `${progress}%`;
-                readout.textContent = text;
-                strip.setAttribute("aria-valuenow", String(roundedProgress));
-                strip.setAttribute("aria-valuetext", text);
-            };
-
-            const stopAutoplay = () => {
-                if (autoplayFrame) {
-                    cancelAnimationFrame(autoplayFrame);
-                    autoplayFrame = 0;
-                }
-            };
-
-            const startAutoplay = () => {
-                const startedAt = performance.now();
-
-                const tick = (timestamp) => {
-                    const elapsed = timestamp - startedAt;
-                    const ratio = clamp(elapsed / autoplayDuration, 0, 1);
-                    updateProgress(targetProgress * easeOutQuart(ratio));
-
-                    if (ratio < 1) {
-                        autoplayFrame = requestAnimationFrame(tick);
-                    } else {
-                        autoplayFrame = 0;
-                    }
-                };
-
-                updateProgress(0);
-                autoplayFrame = requestAnimationFrame(tick);
-            };
-
-            const updateFromPointer = (event) => {
-                const rect = strip.getBoundingClientRect();
-                updateProgress(((event.clientX - rect.left) / rect.width) * 100);
-            };
-
-            strip.addEventListener("pointerdown", (event) => {
-                stopAutoplay();
-                isDragging = true;
-                strip.classList.add("is-dragging");
-                strip.setPointerCapture(event.pointerId);
-                updateFromPointer(event);
-                event.preventDefault();
-            });
-
-            strip.addEventListener("pointermove", (event) => {
-                if (!isDragging) {
-                    return;
-                }
-
-                updateFromPointer(event);
-            });
-
-            const stopDragging = (event) => {
-                isDragging = false;
-                strip.classList.remove("is-dragging");
-
-                if (strip.hasPointerCapture(event.pointerId)) {
-                    strip.releasePointerCapture(event.pointerId);
-                }
-            };
-
-            strip.addEventListener("pointerup", stopDragging);
-            strip.addEventListener("pointercancel", stopDragging);
-
-            strip.addEventListener("keydown", (event) => {
-                stopAutoplay();
-                const step = event.shiftKey ? 5 : 1;
-                let nextProgress = progress;
-
-                if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
-                    nextProgress -= step;
-                } else if (event.key === "ArrowRight" || event.key === "ArrowUp") {
-                    nextProgress += step;
-                } else if (event.key === "Home") {
-                    nextProgress = 0;
-                } else if (event.key === "End") {
-                    nextProgress = 100;
-                } else {
-                    return;
-                }
-
-                event.preventDefault();
-                updateProgress(nextProgress);
-            });
-
-            startAutoplay();
-        });
-    })();
-</script>
 <!-- ==================================================
      HYPER BAR PRODUCT PAGE - END
      ================================================== -->
