@@ -28,7 +28,7 @@
     html,
     body {
         margin: 0;
-        background: var(--hpb-surface);
+        background: #fff;
     }
 
     .hyperbar-docs,
@@ -43,11 +43,7 @@
         overflow: hidden;
         overflow-wrap: anywhere;
         color: var(--hpb-ink);
-        background:
-            radial-gradient(circle at 12% 0%, rgba(255, 184, 77, 0.18), transparent 24%),
-            radial-gradient(circle at 88% 14%, rgba(255, 255, 255, 0.08), transparent 28%),
-            radial-gradient(circle at 50% 72%, rgba(255, 184, 77, 0.08), transparent 34%),
-            linear-gradient(180deg, #080b0f 0%, #05070a 48%, #0b0f13 100%);
+        background: #fff;
         font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, sans-serif;
         -webkit-text-size-adjust: 100%;
     }
@@ -67,37 +63,68 @@
     .hyperbar-docs-container {
         width: min(940px, 100%);
         margin: 0 auto;
-        padding: 64px 20px 132px;
+        padding: 56px 20px 132px;
     }
 
     .hyperbar-docs-section {
-        margin: 0;
-        padding: 0 48px 48px;
-        border-bottom: 1px solid var(--hpb-line);
+        --hpb-heading-progress: 72%;
+        position: relative;
+        margin: 0 0 44px;
+        padding: 48px;
+        overflow: hidden;
+        border: 1px solid rgba(245, 247, 241, 0.16);
+        border-radius: var(--hpb-radius-card);
+        background:
+            linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.035) 22%, rgba(255, 255, 255, 0) 42%),
+            linear-gradient(180deg, rgba(31, 36, 41, 0.94), rgba(9, 12, 16, 0.98) 62%, rgba(5, 7, 10, 0.98));
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.18),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.76);
     }
 
-    .hyperbar-docs-section + .hyperbar-docs-section {
-        padding-top: 48px;
+    .hyperbar-docs-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        border-radius: inherit;
+        background:
+            radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.11), transparent 30%),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.035), transparent 34%);
+        opacity: 0.72;
+        pointer-events: none;
     }
 
-    .hyperbar-docs-section:first-child {
-        padding-top: 0;
+    .hyperbar-docs-section > * {
+        position: relative;
+        z-index: 1;
     }
 
     .hyperbar-docs-section:last-child {
-        padding-bottom: 0;
-        border-bottom: 0;
+        margin-bottom: 0;
     }
 
     .hyperbar-docs-section h2 {
         max-width: 820px;
-        margin: 0 0 28px;
+        margin: 0 0 32px;
         color: var(--hpb-ink);
-        font-size: clamp(2rem, 4.3vw, 3.1rem);
+        font-size: clamp(2.18rem, 5vw, 3.55rem);
         font-weight: 760;
         line-height: 1;
         letter-spacing: 0;
         text-transform: none;
+    }
+
+    .hyperbar-docs-section h2::after {
+        content: "";
+        display: block;
+        width: var(--hpb-heading-progress);
+        max-width: 210px;
+        height: 2px;
+        margin-top: 22px;
+        border-radius: var(--hpb-radius-control);
+        background: linear-gradient(90deg, var(--hpb-lime), rgba(255, 184, 77, 0));
+        box-shadow: 0 0 20px rgba(255, 184, 77, 0.3);
     }
 
     .hyperbar-docs-section h3 {
@@ -108,6 +135,18 @@
         letter-spacing: 0.14em;
         line-height: 1.35;
         text-transform: uppercase;
+    }
+
+    #installation {
+        --hpb-heading-progress: 54%;
+    }
+
+    #panel-overview {
+        --hpb-heading-progress: 76%;
+    }
+
+    #add-on-settings {
+        --hpb-heading-progress: 64%;
     }
 
     .hyperbar-docs-section p {
@@ -211,21 +250,24 @@
 
     @media (max-width: 720px) {
         .hyperbar-docs-container {
-            padding: 48px 12px 88px;
+            padding: 38px 12px 88px;
         }
 
         .hyperbar-docs-section {
-            padding: 0 24px 36px;
-        }
-
-        .hyperbar-docs-section + .hyperbar-docs-section {
-            padding-top: 36px;
+            margin-bottom: 24px;
+            padding: 24px;
         }
 
         .hyperbar-docs-section h2 {
-            margin-bottom: 22px;
-            font-size: clamp(1.95rem, 9vw, 2.8rem);
-            line-height: 1;
+            margin-bottom: 24px;
+            font-size: clamp(2rem, 9.6vw, 3rem);
+            line-height: 0.96;
+        }
+
+        .hyperbar-docs-section h2::after {
+            max-width: 220px;
+            height: 3px;
+            margin-top: 18px;
         }
 
         .hyperbar-docs-grid {
@@ -236,72 +278,33 @@
 
 <main class="hyperbar-docs">
     <div class="hyperbar-docs-container">
-        <section class="hyperbar-docs-section" id="where-to-find-it">
-            <h2>Where To Find It</h2>
-            <p>After enabling the add-on, open the 3D Viewport sidebar with <code>N</code> and go to the <code>Hyper Bar</code> tab.</p>
+        <section class="hyperbar-docs-section" id="installation">
+            <h2>Installation</h2>
+            <p>In Blender, open <code>Edit &gt; Preferences &gt; Add-ons</code>, click <code>Install...</code>, and choose the Hyper Bar add-on ZIP file. Enable the add-on, then open the 3D Viewport sidebar with <code>N</code> and go to the <code>Hyper Bar</code> tab.</p>
             <p>The progress bar is available in two places: inside the 3D Viewport sidebar and, optionally, in the render window header.</p>
-            <ul>
-                <li>Main render progress bar.</li>
-                <li>Live metrics during rendering.</li>
-                <li>Recent render history.</li>
-                <li><code>Render Animation</code> button.</li>
-                <li>Trash icon button for clearing render history.</li>
-                <li>Small preferences shortcut in the panel header.</li>
-            </ul>
         </section>
 
-        <section class="hyperbar-docs-section" id="starting-a-render">
-            <h2>Starting A Render</h2>
-            <p>You can start rendering in the usual Blender ways. Hyper Bar does not use a separate custom render system.</p>
-            <ul>
-                <li>Use Blender's native Render Animation command.</li>
-                <li>Press the <code>Render Animation</code> button in the Hyper Bar panel.</li>
-            </ul>
-            <p>The <code>Render Animation</code> button is only a shortcut for Blender's native animation render. While a render is active, the button is disabled to prevent starting another render by accident.</p>
-        </section>
-
-        <section class="hyperbar-docs-section" id="main-progress-bar">
-            <h2>Main Progress Bar</h2>
-            <p>The main progress bar shows the current render status. For animation renders, it shows render percentage, rendered frames and total frames, and ETA when enough data is available.</p>
-            <p>At the beginning of an animation render, Hyper Bar shows <code>Calculating ETA...</code>. After the first finished frame, the add-on can start estimating the remaining time.</p>
-            <div class="hyperbar-code-block">25%, 30/120, 12:40 left</div>
-            <p>When the animation is complete, the progress bar stays at <code>100%</code>.</p>
-        </section>
-
-        <section class="hyperbar-docs-section" id="live-metrics">
-            <h2>Live Metrics</h2>
-            <p>Live Metrics appear only while a render is active. These values are most useful for animation rendering.</p>
-            <div class="hyperbar-docs-grid" aria-label="Live metrics">
+        <section class="hyperbar-docs-section" id="panel-overview">
+            <h2>Panel Overview</h2>
+            <p>The Hyper Bar panel keeps the main animation render tools and status information in one compact place.</p>
+            <div class="hyperbar-docs-grid" aria-label="Panel overview">
                 <div class="hyperbar-docs-card">
-                    <strong>Elapsed</strong>
-                    <span>How long the current render has been running.</span>
+                    <strong>Progress Bar</strong>
+                    <span>Shows render percentage, rendered frames, total frames, and ETA when enough data is available.</span>
                 </div>
                 <div class="hyperbar-docs-card">
-                    <strong>Avg Frame</strong>
-                    <span>Average time per frame, based on recent rendered frames.</span>
+                    <strong>Live Metrics</strong>
+                    <span>Shows elapsed time, average frame time, and the estimated finish time while rendering.</span>
                 </div>
                 <div class="hyperbar-docs-card">
-                    <strong>Finishes At</strong>
-                    <span>Estimated clock time when the render should finish.</span>
+                    <strong>Render History</strong>
+                    <span>Stores recent render sessions, including frame range, finish time, elapsed time, and average frame time.</span>
                 </div>
                 <div class="hyperbar-docs-card">
-                    <strong>Smooth ETA</strong>
-                    <span>The ETA uses recent frame times, so it can adapt when frame render time changes during the sequence.</span>
+                    <strong>Render Animation</strong>
+                    <span>The <code>Render Animation</code> button is only a shortcut for Blender's native animation render. While a render is active, the button is disabled to prevent starting another render by accident.</span>
                 </div>
             </div>
-        </section>
-
-        <section class="hyperbar-docs-section" id="render-history">
-            <h2>Render History</h2>
-            <p>Hyper Bar keeps a short history of recent render sessions. The history stores up to 10 recent render sessions and can be cleared with the trash icon button next to <code>Render Animation</code>.</p>
-            <ul>
-                <li>Session number.</li>
-                <li>Rendered frame range.</li>
-                <li>Finish time.</li>
-                <li>Total elapsed time.</li>
-                <li>Average time per frame.</li>
-            </ul>
-            <p>Completed renders are shown normally. Canceled renders are kept in the history too, but they are displayed in a muted style.</p>
         </section>
 
         <section class="hyperbar-docs-section" id="add-on-settings">
@@ -309,9 +312,10 @@
             <p>Open Blender Preferences, find Hyper Bar in the add-ons list, and open its settings. You can also use the small settings shortcut in the Hyper Bar panel header.</p>
 
             <h3>ETA Recent Window</h3>
-            <p>This setting controls how many recent frames are used to calculate the average frame time and ETA.</p>
-            <div class="hyperbar-code-block">Default value: 10</div>
-            <p>A smaller value reacts faster to changing frame times, but the ETA may jump more. A larger value gives a smoother ETA, but it reacts more slowly.</p>
+            <p><code>ETA Recent Window</code> controls how many finished frames Hyper Bar uses to calculate the average frame time and ETA. It does not average the whole render from the beginning; it looks only at the most recent frames, calculates a rolling average, and uses that average to estimate the remaining time.</p>
+            <div class="hyperbar-code-block">Default value: 50</div>
+            <p>The default value of <code>50</code> gives a smoother ETA and helps ignore small frame-to-frame spikes. This is usually best for scenes where render time stays fairly consistent across the animation.</p>
+            <p>For dynamic scenes, where the render becomes heavier or lighter during the animation, use <code>10</code>. A smaller window follows recent changes faster, but the ETA may move around more because it reacts to fewer frames.</p>
 
             <h3>Show In Render Window</h3>
             <p>This setting controls whether Hyper Bar is also shown in the render window header.</p>
@@ -319,14 +323,6 @@
             <p>Turn it off if you want to keep the render window header cleaner.</p>
         </section>
 
-        <section class="hyperbar-docs-section" id="notes">
-            <h2>Notes</h2>
-            <ul>
-                <li>Hyper Bar uses the scene frame range and frame step to calculate the total number of animation frames.</li>
-                <li>The add-on updates the UI automatically during rendering.</li>
-                <li>The add-on is lightweight and keeps render calculations separate from Blender's actual rendering process.</li>
-            </ul>
-        </section>
     </div>
 </main>
 <!-- ==================================================
