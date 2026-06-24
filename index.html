@@ -73,10 +73,25 @@
     .hyperbar-sale-strip {
         position: relative;
         width: calc(100% + 40px);
-        margin: -56px -20px 42px;
+        margin: -56px -20px 0;
         overflow: hidden;
         background: #d2ff2e;
         color: var(--hpb-black);
+    }
+
+    .hyperbar-cover-video {
+        display: block;
+        width: calc(100% + 40px);
+        margin: 0 -20px 52px;
+        overflow: hidden;
+        background: #fff;
+        line-height: 0;
+    }
+
+    .hyperbar-cover-video video {
+        display: block;
+        width: 100%;
+        height: auto;
     }
 
     .hyperbar-sale-strip-track {
@@ -493,12 +508,17 @@
 
         .hyperbar-sale-strip {
             width: calc(100% + 24px);
-            margin: -38px -12px 34px;
+            margin: -38px -12px 0;
         }
 
         .hyperbar-sale-strip span {
             padding: 7px 20px;
             font-size: 0.6em;
+        }
+
+        .hyperbar-cover-video {
+            width: calc(100% + 24px);
+            margin: 0 -12px 34px;
         }
 
         .hyperbar-intro {
@@ -576,6 +596,10 @@
                 <span>Launch Sale &minus;50%</span>
                 <span>Launch Sale &minus;50%</span>
             </div>
+        </div>
+
+        <div class="hyperbar-cover-video" aria-label="Hyper Bar cover video">
+            <video src="assets/Cover.mp4" autoplay muted loop playsinline preload="auto"></video>
         </div>
 
         <!-- Introduction -->
